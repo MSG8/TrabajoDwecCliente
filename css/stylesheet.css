@@ -1,0 +1,130 @@
+/*Estilos generales*/
+body{
+    margin: 0px;
+}
+/*FIN Estilos generales*/
+/*Estilos cabecera*/
+header{
+    width: 100%;
+    height: 85px;
+    background-color: #5391DB;
+    border-bottom: 3px solid grey;
+}
+/*Logo*/
+.cajaLateral{
+    display: grid;
+    width: 15.161%;
+    height: 85px;
+    margin: 0px;
+    float: left;
+    padding-left: 2%;
+    background-color: white;
+    box-shadow: -3px -2px 10px inset black;
+}
+#logo{
+    height: 75px;
+    width: 55%;
+    padding: 4px 0px 0px 0px;
+}
+/*Titulo*/
+#titulo{
+    display: grid;
+    float: left;
+    width: 65.68%;
+    height: 85px;
+    margin: 0px;
+    font-size: 45px;
+    letter-spacing: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    text-align: center;
+    align-items: center;
+    box-shadow:  0px, 0px, 12px 2px grey;
+}
+#titulo span{
+    text-shadow: 3px 2px 2px rgb(165, 164, 164);
+}
+/*puntuacion*/
+#puntuacion{
+    align-items: center;
+    font-size: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    box-shadow: 3px -2px 10px inset black;
+    letter-spacing: 3px;
+}
+/*Estilos main*/
+main{
+    display: grid;
+    background-image: url("../img/math.jpg");
+    height: 939px;
+    align-items: center;
+    /*border-bottom: 4px solid grey;*/
+    box-shadow: 2px -5px 10px 0px inset lightgray, -2px 5px 10px 0px inset lightgray;
+    text-align: center;
+}
+#numeroAside{
+    display: grid;
+    align-items: center;
+    height: 240px;
+    width: 10%;
+    background-color: rgba(165, 42, 42, 0.527);
+    position: absolute;
+    margin-left: 2%;
+    border-radius: 12px;
+    border: 1px solid white;
+    box-shadow: 0px 0px 10px 5px inset rgba(165, 42, 42, 0.856);
+}
+#numeroAside span{
+    font-size: 80px;
+    color: white;
+    font-weight: bold;
+}
+#ventanaJuego{
+    width: 69.86%;
+    background-color: #16575dab;
+    height: 762px;
+    margin: auto;
+    border-radius: 8px;
+    border: 3px solid white;
+    position: relative;
+}
+/*Bolas*/
+#ventanaJuego div{
+    background-color: rgb(57, 80, 116);
+    margin: 0px;
+    display: grid;
+    border: 1px solid burlywood;
+    width: 60px;
+    height: 60px;
+    border-radius: 31px;
+    font-size: 20px;
+    text-align: center;
+    align-items: center;
+    position: absolute;
+}
+.bola{
+    color: white;
+}
+.bolaAcertada{
+    color: green;
+}
+.bolaError{
+    color: red;
+}
+#bola1{
+    top: 30px;
+    left: 12%;
+}
+#bola2{
+    top: 200px;
+    left: 60%;
+}
+#bola3{
+    top: 400px;
+    left: 80%;
+}
+#bola4{
+    top: 400px;
+    left: 30%;
+}
+/*Estilos footer*/
