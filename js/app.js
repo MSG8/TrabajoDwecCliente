@@ -60,7 +60,7 @@ class Vista
             {
                 this.bolas[indice].velocidady = -this.bolas[indice].velocidady //modificamos el signo de la velocidad si tocan los bordes
             }
-            if (left <= 0 || left >= 1000-anchoBola ) //le restamos el tamaño de la bola para que coincida con el tamaño del contenedor
+            if (left <= 0 || left >= 950-anchoBola ) //le restamos el tamaño de la bola para que coincida con el tamaño del contenedor
             {
                 this.bolas[indice].velocidadx = -this.bolas[indice].velocidadx //modificamos el signo de la velocidad si tocan los bordes
             }
@@ -90,6 +90,7 @@ class Bola
         this.velocidadx =  Math.floor (Math.random () * 51) -25;
         this.velocidady =  Math.floor (Math.random () * 51) -25;
         this.div = document.createElement('div');
+        this.div.appendChild(document.createTextNode(1));
         this.cambiarClase('bola');
         //Cada vez que se cree una bola se generara en el centro
         this.div.style.top = '370px'; //Colocamos las medidas por defecto de los div en top
