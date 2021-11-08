@@ -3,6 +3,7 @@
  * archivo: app.js
  * Licencia: GPL3
  * Esta clase es el controlador de nuestra aplicacion
+ * Autores: Manuel Solís Gómez(masogo008@gmail.com), Daniel Nuñez, Genaro Salas y Julio
  */
 class App
 {
@@ -39,7 +40,7 @@ class Vista
     {
         for (let indice = 0; indice < cantidadBolas; indice++) //creamo tanto objeto Bola como nos diga el modelo
         {
-            let bola = new Bola() //creamos el objeto
+            let bola = new Bola(this.contenedor) //creamos el objeto
             this.bolas.push(bola) //añadimos al array de bolas cada objeto bola
             this.contenedor.appendChild(bola.div); //le añadimos la bola al contenedor
         }
@@ -56,11 +57,11 @@ class Vista
             let top = parseFloat(bola.div.style.top.substr(0,(bola.div.style.top.length-2))); //tomamos el top del elemento, ademas de quitarle de su cadena px y pasarlo a numero
             let left = parseFloat(bola.div.style.left.substr(0,(bola.div.style.left.length-2))); //tomamos el left del elemento, ademas de quitarle de su cadena px y pasarlo a numero
             //Si llega a los bordes se aplica algunos de estos if
-            if (top <= 0 || top >= 760-anchoBola ) //le restamos el tamaño de la bola para que coincida con el tamaño del contenedor
+            if (top <= 0 || top >= this.contenedor.clientHeight -bola.div.clientHeight ) //le restamos el tamaño de la bola para que coincida con el tamaño del contenedor
             {
                 this.bolas[indice].velocidady = -this.bolas[indice].velocidady //modificamos el signo de la velocidad si tocan los bordes
             }
-            if (left <= 0 || left >= 950-anchoBola ) //le restamos el tamaño de la bola para que coincida con el tamaño del contenedor
+            if (left <= 0 || left >= this.contenedor.clientWidth -bola.div.clientWidth ) //le restamos el tamaño de la bola para que coincida con el tamaño del contenedor
             {
                 this.bolas[indice].velocidadx = -this.bolas[indice].velocidadx //modificamos el signo de la velocidad si tocan los bordes
             }
@@ -85,7 +86,7 @@ class Modelo
 }
 class Bola
 {
-    constructor()
+    constructor(contenedor)
     {
         this.velocidadx =  Math.floor (Math.random () * 51) -25;
         this.velocidady =  Math.floor (Math.random () * 51) -25;
@@ -93,8 +94,8 @@ class Bola
         this.div.appendChild(document.createTextNode(1));
         this.cambiarClase('bola');
         //Cada vez que se cree una bola se generara en el centro
-        this.div.style.top = '370px'; //Colocamos las medidas por defecto de los div en top
-        this.div.style.left = '495px';//Colocamos las medidas por defecto de los div en left
+        this.div.style.top = (contenedor.clientHeight/2) + 'px'; //Colocamos las medidas por defecto de los div en top
+        this.div.style.left = (contenedor.clientWidth/2) + 'px';//Colocamos las medidas por defecto de los div en left
     }
 
     cambiarClase(nombreClase)
