@@ -19,6 +19,7 @@ class App
     }
     iniciar()
     {
+        this.vista.puntuacion(this.modelo.puntuacion);
         this.vista.generarBolas(this.modelo.cantidadBolas); //Llamamos a generar las bolas, podriamos llamarlo si clica algun boton
         this.animador = window.setInterval(this.vista.moverBolas.bind(this.vista), 200); // nuestra animador llamara cada cierto intervalo de tiempo a la funcion de movimiento, el animador pertenece al controlador y verlas moviendose a la vista
     }
@@ -29,13 +30,15 @@ class App
         let multiplo = document.getElementById('numeroAside'); //tomamos el elemento numeroAside que tiene el multiplo
         let textMultiplo = multiplo.childNodes[0].nodeValue; //Saca el nodo de texto de multiplo
 
-        if (textoBola % textMultiplo == 0) 
+        if (textoBola % textMultiplo == 0)
         {
             this.vista.cambiarClase(bola,'bolaAcertada');
+            this.vista.puntuar(+1);
         }
         else
         {
             this.vista.cambiarClase(bola,'bolaError');
+            this.vista.puntuar(-1);
         }
     }
 }
@@ -47,6 +50,7 @@ class Vista
     constructor(controlador)
     {
         this.controlador = controlador;
+        this.elementoPuntuacion = document.getElementById('puntuacion').children[1];
         document.getElementById('numeroAside').appendChild(document.createTextNode((Math.floor(Math.random() * (10 - 2)) + 2))); //
         this.contenedor = document.getElementById('ventanaJuego');
         this.bolas = []; //array que contenga todas las bolas
@@ -68,8 +72,8 @@ class Vista
      */
     moverBolas()
     {
-        for (let indice = 0; indice < this.bolas.length; indice++) 
-        { 
+        for (let indice = 0; indice < this.bolas.length; indice++)
+        {
             let bola = this.bolas[indice]; //tomamos cada objeto bola que contenrra su estructura y velocidad
             let top = parseFloat(bola.div.style.top.substr(0,(bola.div.style.top.length-2))); // tomamos el top del elemento, ademas de quitarle de su cadena px y pasarlo a numero
             let left = parseFloat(bola.div.style.left.substr(0,(bola.div.style.left.length-2))); //tomamos el left del elemento, ademas de quitarle de su cadena px y pasarlo a numero
@@ -92,6 +96,16 @@ class Vista
         elemento.classList.remove('quitar_esta_clase');
         elemento.classList.add(nombreClase);
     }
+    puntuar(punto)
+    {
+      this.elementoPuntuacion.textContent = `${parseInt(this.elementoPuntuacion.textContent)+punto}`;
+        this.controlador.modelo.puntuacion = parseInt(this.elementoPuntuacion.textContent);
+    }
+    puntuacion(punto)
+    {
+        this.elementoPuntuacion.appendChild(document.createTextNode(punto));
+
+    }
 }
 /**
  * Clase destinada a guardar los datos de la aplicacion
@@ -104,6 +118,7 @@ class Modelo
     constructor()
     {
         this.cantidadBolas = 6;
+        this.puntuacion = 0;
     }
 }
 class Bola
