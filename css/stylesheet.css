@@ -73,8 +73,6 @@ main{
     border-radius: 12px;
     border: 1px solid white;
     box-shadow: 0px 0px 10px 5px inset rgba(165, 42, 42, 0.856);
-}
-#numeroAside span{
     font-size: 80px;
     color: white;
     font-weight: bold;
@@ -90,7 +88,6 @@ main{
 }
 /*Bolas*/
 #ventanaJuego div{
-    background-color: rgb(57, 80, 116);
     margin: 0px;
     display: grid;
     border: 1px solid burlywood;
@@ -103,13 +100,16 @@ main{
     position: absolute;
 }
 .bola{
+    background-color: rgb(57, 80, 116);
     color: white;
 }
 .bolaAcertada{
-    color: green;
+    background-color: rgb(14, 185, 14);
+    color: white;
 }
 .bolaError{
-    color: red;
+    background-color: red;
+    color: white;
 }
 #bola1{
     top: 30px;
