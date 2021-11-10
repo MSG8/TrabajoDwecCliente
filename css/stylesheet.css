@@ -73,8 +73,6 @@ main{
     border-radius: 12px;
     border: 1px solid white;
     box-shadow: 0px 0px 10px 5px inset rgba(165, 42, 42, 0.856);
-}
-#numeroAside span{
     font-size: 80px;
     color: white;
     font-weight: bold;
@@ -106,7 +104,7 @@ main{
     color: white;
 }
 .bolaAcertada{
-    color: green;
+    color: rgb(14, 185, 14);
 }
 .bolaError{
     color: red;
