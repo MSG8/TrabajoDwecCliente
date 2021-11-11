@@ -294,4 +294,3 @@ class Bola
 }
 App.limiteNumero = 50; //atributo estatico
 let controlador = new App();
->>>>>>> 4afc640fd1c65b51541cd06d32f80abcbf6bf0a2
