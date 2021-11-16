@@ -16,6 +16,7 @@ class App
         this.modelo = new Modelo(); // Clase referente a todos los datos de la aplicacion
         this.animador = null;
         window.onload= this.iniciar.bind(this); //Tomamos el objeto este y busca el metodo iniciar
+        document.getElementsByTagName('button')[0].onclick = this.finPrograma.bind(this);//Colocamos el evento que llama al metodo de fin de programa;
     }
     iniciar()
     {
@@ -39,6 +40,31 @@ class App
         {
             this.vista.cambiarClase(bola,'bolaError');
             this.vista.puntuar(-1);
+        }
+    }
+    finPrograma()
+    {
+        let bolas = document.querySelectorAll('bola'); //tomamos todos los div de las bolas
+        let multiplo = document.getElementById('numeroAside'); //tomamos el elemento numeroAside que tiene el multiplo
+        let textMultiplo = multiplo.childNodes[0].nodeValue; //Saca el nodo de texto de multiplo
+        let multiplica = false; //Variable para controlar si algun multiplo da 0
+
+        for (let indice = 0; indice < bolas.length && multiplica==false; indice++) //For para pasar por cada una de las div de las bolas y mientras no hay multiplicacion con resto 0
+        {
+            let textoBola = bolas[indice].childNodes[0].nodeValue; //Saca el nodo de texto de la bola, es decir el numero a coparar si el multiplo
+            if (textoBola % textMultiplo == 0) 
+            {
+                multiplica = true; //Nos dice que ha multiplicado alguno
+            }
+        }
+
+        if (!multiplica) 
+        {
+            this.vista.ganador(); //si no existe multiplo nos llevara a que la vista nos enseñe que ganamos
+        }
+        else
+        {
+            this.vista.perdedor(); //si existe multiplo nos llevara a que la vista nos enseñe que hemos perdido
         }
     }
 }
@@ -93,18 +119,25 @@ class Vista
     }
     cambiarClase(elemento,nombreClase)
     {
-        elemento.classList.remove('quitar_esta_clase');
+        elemento.classList.remove('bola');
         elemento.classList.add(nombreClase);
     }
     puntuar(punto)
     {
-      this.elementoPuntuacion.textContent = `${parseInt(this.elementoPuntuacion.textContent)+punto}`;
+        this.elementoPuntuacion.textContent = `${parseInt(this.elementoPuntuacion.textContent)+punto}`;
         this.controlador.modelo.puntuacion = parseInt(this.elementoPuntuacion.textContent);
     }
     puntuacion(punto)
     {
         this.elementoPuntuacion.appendChild(document.createTextNode(punto));
-
+    }
+    ganador()
+    {
+        alert('Gano, eres un maquina');
+    }
+    perdedor()
+    {
+        alert('Lo siento, prueba de nuevo');
     }
 }
 /**
@@ -117,7 +150,7 @@ class Modelo
      */
     constructor()
     {
-        this.cantidadBolas = 6;
+        this.cantidadBolas = 20;
         this.puntuacion = 0;
     }
 }

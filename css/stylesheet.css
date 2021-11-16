@@ -85,10 +85,28 @@ main{
     border-radius: 8px;
     border: 3px solid white;
     position: relative;
+    z-index: 1;
+}
+main button
+{
+    min-width: 20%;
+    min-height: 40px;
+    background-color: rgba(165, 42, 42, 0.527);
+    font-size: large;
+    color: white;
+    margin: auto;
+    border-radius: 8px;
+    border: 3px outset white;
+    position: relative;
+}
+main button:hover
+{
+    background-color: white;
+    color: rgba(165, 42, 42, 0.527);
+    border: 3px inset rgba(165, 42, 42, 0.527);
 }
 /*Bolas*/
 #ventanaJuego div{
-    background-color: rgb(57, 80, 116);
     margin: 0px;
     display: grid;
     border: 1px solid burlywood;
@@ -99,15 +117,17 @@ main{
     text-align: center;
     align-items: center;
     position: absolute;
-}
-.bola{
+    transition: 0.5s;
     color: white;
 }
+.bola{
+    background-color: rgb(57, 80, 116);
+}
 .bolaAcertada{
-    color: rgb(14, 185, 14);
+    background-color: rgb(14, 185, 14);
 }
 .bolaError{
-    color: red;
+    background-color: red;
 }
 #bola1{
     top: 30px;
