@@ -35,6 +35,7 @@ class App
         {
             this.vista.cambiarClase(bola,'bolaAcertada');
             this.vista.puntuar(+1);
+            this.vista.destruirBola(bola);
         }
         else
         {
@@ -44,27 +45,41 @@ class App
     }
     finPrograma()
     {
-        let bolas = document.querySelectorAll('bola'); //tomamos todos los div de las bolas
-        let multiplo = document.getElementById('numeroAside'); //tomamos el elemento numeroAside que tiene el multiplo
-        let textMultiplo = multiplo.childNodes[0].nodeValue; //Saca el nodo de texto de multiplo
-        let multiplica = false; //Variable para controlar si algun multiplo da 0
-
-        for (let indice = 0; indice < bolas.length && multiplica==false; indice++) //For para pasar por cada una de las div de las bolas y mientras no hay multiplicacion con resto 0
+        let bolas = document.querySelectorAll('.bola'); //tomamos todos los div de las bolas
+        if (bolas.length > 0) //Si hay alguna bola lo verifico
         {
-            let textoBola = bolas[indice].childNodes[0].nodeValue; //Saca el nodo de texto de la bola, es decir el numero a coparar si el multiplo
-            if (textoBola % textMultiplo == 0) 
+            let bolasMal = document.querySelectorAll('.bolaError'); //tomamos todos los div de las bolas que ya han dado error
+            let multiplo = document.getElementById('numeroAside'); //tomamos el elemento numeroAside que tiene el multiplo
+            let textMultiplo = multiplo.childNodes[0].nodeValue; //Saca el nodo de texto de multiplo
+            let multiplica = false; //Variable para controlar si algun multiplo da 0
+
+            for (let indice = 0; indice < bolas.length && multiplica==false; indice++) //For para pasar por cada una de las div de las bolas y mientras no hay multiplicacion con resto 0
             {
-                multiplica = true; //Nos dice que ha multiplicado alguno
+                let textoBola = bolas[indice].childNodes[0].nodeValue; //Saca el nodo de texto de la bola, es decir el numero a coparar si el multiplo
+                if (textoBola % textMultiplo == 0) 
+                {
+                    multiplica = true; //Nos dice que ha multiplicado alguno
+                }
             }
-        }
 
-        if (!multiplica) 
-        {
-            this.vista.ganador(); //si no existe multiplo nos llevara a que la vista nos enseñe que ganamos
-        }
-        else
-        {
-            this.vista.perdedor(); //si existe multiplo nos llevara a que la vista nos enseñe que hemos perdido
+            for (let indice = 0; indice < bolas.length; indice++) //Eliminamos las bolas que no han sido probadas
+            {
+                bolas[indice].remove();
+            }
+
+            for (let indice = 0; indice < bolasMal.length; indice++) //Eliminamos las bolas de error
+            {
+                bolasMal[indice].remove();
+            }
+
+            if (!multiplica) 
+            {
+                this.vista.ganador(); //si no existe multiplo nos llevara a que la vista nos enseñe que ganamos
+            }
+            else
+            {
+                this.vista.perdedor(); //si existe multiplo nos llevara a que la vista nos enseñe que hemos perdido
+            }
         }
     }
 }
@@ -131,13 +146,44 @@ class Vista
     {
         this.elementoPuntuacion.appendChild(document.createTextNode(punto));
     }
+    destruirBola(bolaTarget) 
+    {
+        let bola = bolaTarget // recibe la bola seleccionada
+        let left = bola.style.left; //toma la posicion de la bola
+        let top = bola.style.top 
+        let ancho = bola.clientWidth; //toma el tamaño de la bola 
+        let alto = bola.clientHeight; 
+        bola.remove();
+
+        let img = document.createElement('img'); //Crea la imagen aplicando la posicion que tenia la bola y el tamaño
+        img.src = 'img/explosion1.gif';
+        img.style.top=top;
+        img.style.left=left;
+        img.style.width = ancho*1.5 +'px'; //Le aplicamos un 1.5 del tamaño de la bola para que sea mas visual
+        img.style.height = alto*1.5 +'px';
+        this.contenedor.appendChild(img);
+        
+        setTimeout(()=>{img.remove()}, 750) //elimina la animación cuando completa un ciclo
+    }
     ganador()
     {
-        alert('Gano, eres un maquina');
+        this.contenedor.id='ganar'; //Cambiamos su id para cambiar su estilo a cuando gana, tambien cambiara el this.contenedor
+        let mensaje = document.createElement('h1'); //Creamos el elemento del resultado
+        mensaje.appendChild(document.createTextNode('GANASTE'));//Añade un text nodo del resultado
+        mensaje.style.top = (this.contenedor.clientHeight/2)-(146/2) + 'px'; //Colocamos las medidas por defecto de los div en top, le restamos la mitad de su tamaño
+        mensaje.style.left = (this.contenedor.clientWidth/2)-(640/2) + 'px';//Colocamos las medidas por defecto de los div en left, le restamos la mitad de su tamaño
+        this.contenedor.appendChild(mensaje);//Añade el mensaje al contenedor
     }
     perdedor()
     {
-        alert('Lo siento, prueba de nuevo');
+        this.contenedor.id='perder'; //Cambiamos su id para cambiar su estilo a cuando pierde, tambien cambiara el this.contenedor
+        let mensaje = document.createElement('h1'); //Creamos el elemento del resultado
+        mensaje.appendChild(document.createTextNode('PERDISTE'));//Añade un text nodo del resultado
+        console.log(mensaje);
+        mensaje.style.top = (this.contenedor.clientHeight/2)-(146/2) + 'px'; //Colocamos las medidas por defecto de los div en top, le restamos la mitad de su tamaño
+        mensaje.style.left = (this.contenedor.clientWidth/2)-(640/2)  + 'px';//Colocamos las medidas por defecto de los div en left, le restamos la mitad de su tamaño
+        console.log(mensaje.clientWidth);
+        this.contenedor.appendChild(mensaje);//Añade el mensaje al contenedor
     }
 }
 /**
