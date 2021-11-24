@@ -108,9 +108,8 @@ main{
 {
     background-color: #e91010dc;
 }
-#ganar h1,#perder h1
+#ganar h2,#perder h2
 {
-    font-size: 8rem;
     color: white;
     text-shadow: 8px 4px 8px rgb(46, 45, 45);
     position: absolute;
@@ -224,7 +223,7 @@ main button:hover
         margin-left: 14%;
         font-size: 2rem;
     }
-    #ventanaJuego
+    #ventanaJuego,#ganar,#perder
     {
         height: 360px;
         margin-top: 30px;
