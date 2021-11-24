@@ -77,6 +77,16 @@ class App
         {
             this.vista.perdedor(); //si existe multiplo nos llevara a que la vista nos enseñe que hemos perdido
         }
+
+        this.volverJugar()
+    }
+    volverJugar()
+    {
+        //llamamos que la vista cree el boton
+        this.vista.generarBoton('VOLVER A JUEGAR','otraVez');
+
+        //colocamos el evento al boton nuevo creado
+        document.getElementById('otraVez').onclick = recargar();
     }
 }
 /**
@@ -104,6 +114,13 @@ class Vista
             this.contenedor.appendChild(bola.div); //le añadimos la bola al contenedor
         }
     }
+    /**
+     * Crearemos la cantidad de bolas que queremos
+     */
+     generarBoton(nodo,id)
+     {
+        
+     }
     /**
      * Moveremos la bola cada intervalo pedido por el controlador
      */
