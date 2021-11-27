@@ -170,7 +170,7 @@ select{
     position: absolute;
 }
 /*Media query*/
-@media (min-width: 320px) and (max-width: 400px){
+@media (min-width: 320px) and (max-width: 470px){
 
     body{
         height: 640px;
