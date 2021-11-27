@@ -171,6 +171,7 @@ select{
 }
 /*Media query*/
 @media (min-width: 320px) and (max-width: 550px){
+
     body{
         height: 640px;
     }
@@ -223,7 +224,7 @@ select{
     }
     #ventanaJuego, #ganar, #perder{
         height: 399px;
-        margin-top: 10px;
+        margin: 10px 0;
         width: 98%;
     }
     #ventanaJuego div{
@@ -280,9 +281,9 @@ select{
         font-size: 2rem;
     }
     #ventanaJuego, #ganar, #perder{
-        height: auto;
-        margin: 30px 0;
-        width: 98%;
+        height: 665px;
+        margin-top: 30px;
+        width: 90%;
     }
     main button{
         height: 60px;
