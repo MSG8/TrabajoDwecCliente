@@ -1,6 +1,5 @@
 /*Estilos generales*/
-*
-{
+*{
     margin: 0;
     padding: 0;
     border: 0;
@@ -25,7 +24,7 @@ header{
 }
 #logo{
     height: 75px;
-    width: 55%;
+    width: 68%;
     padding: 4px 0px 0px 0px;
 }
 /*Titulo*/
@@ -57,8 +56,9 @@ header{
 /*Estilos main*/
 main{
     display: grid;
-    background-image: url("../img/math.jpg");
-    height: 939px;
+    /* background-image: url("../img/greenboard.jpg"); */
+    background-color: rgb(139, 139, 139);
+    height: 685px;
     align-items: center;
     /*border-bottom: 4px solid grey;*/
     box-shadow: 2px -5px 10px 0px inset lightgray, -2px 5px 10px 0px inset lightgray;
@@ -67,7 +67,7 @@ main{
 #numeroAside{
     display: grid;
     align-items: center;
-    height: 240px;
+    height: 190px;
     width: 10%;
     background-color: rgba(165, 42, 42, 0.527);
     position: absolute;
@@ -80,9 +80,9 @@ main{
     font-weight: bold;
 }
 /*Estilo ventana juego*/
-#ventanaJuego{
+#ventanaJuego, #ganar, #perder{
     width: 69.86%;
-    height: 762px;
+    height: 540px;
     background-color: #16575dab;
     margin: auto;
     border-radius: 8px;
@@ -90,34 +90,8 @@ main{
     position: relative;
     z-index: 1;
 }
-#ganar,#perder
-{
-    width: 69.86%;
-    height: 762px;
-    background-color: #17c520e3;
-    margin: auto;
-    border-radius: 8px;
-    border: 3px solid white;
-    position: relative;
-}
-#ganar
-{
-    background-color: #17c520e3;
-}
-#perder
-{
-    background-color: #e91010dc;
-}
-#ganar h2,#perder h2
-{
-    color: white;
-    text-shadow: 8px 4px 8px rgb(46, 45, 45);
-    position: absolute;
-    margin: 0;
-}
-/*Boton fin juego*/
-main button
-{
+/*Botones*/
+main button{
     min-width: 20%;
     min-height: 40px;
     background-color: rgba(165, 42, 42, 0.527);
@@ -128,11 +102,45 @@ main button
     border: 3px outset white;
     position: relative;
 }
-main button:hover
-{
+main button:hover{
     background-color: white;
     color: rgba(165, 42, 42, 0.527);
     border: 3px inset rgba(165, 42, 42, 0.527);
+}
+/*Ventana de ganar o perder*/
+#ganar{
+    background-color: #17c520e3;
+}
+#perder{
+    background-color: #e91010dc;
+}
+#ganar h2,#perder h2{
+    color: white;
+    text-shadow: 8px 4px 8px rgb(46, 45, 45);
+    position: absolute;
+    margin: 0;
+}
+#ventanaJuego button{
+    padding: 20px;
+    background-color: rgba(165, 42, 42, 0.527);
+    font-size: 60px;
+    color: white;
+    margin: auto;
+    border-radius: 8px;
+    border: 3px outset white;
+    position: absolute;
+}
+/*Diferentes niveles*/
+select{
+    text-align: center;
+    min-width: 20%;
+    min-height: 40px;
+    background-color: rgba(165, 42, 42, 0.527);
+    font-size: large;
+    color: white;
+    margin: auto;
+    border-radius: 8px;
+    border: 3px outset white;
 }
 /*Bolas*/
 #ventanaJuego div{
@@ -158,74 +166,126 @@ main button:hover
 .bolaError{
     background-color: red;
 }
-#ventanaJuego img
-{
+#ventanaJuego img{
     position: absolute;
 }
-/*Estilos footer*/
-
 /*Media query*/
+@media (min-width: 320px) and (max-width: 400px){
 
-@media (max-width: 360px)
-{
-    body
-    {
+    body{
         height: 640px;
     }
-    header
-    {
-        height: 120px;
+    header{
+        height: 75px;
         background-color: white;
         border: none;
     }
-    .cajaLateral
-    {
-        height: 60px;
+    .cajaLateral{
+        height: 40px;
         width: 32%;
         box-shadow: none;
         background-color: #EFEFEF;
     }
-    #logo
-    {
+    #logo{
         height: 53px;
         width: 100%;
     }
-    #titulo
-    {
-        font-size: 1rem;
-        height: 60px;
+    #titulo{
+        font-size: 16px;
+        height: 48px;
         background-color: #5391DB;
         font-weight: bold;
         width: 65.9%;
         line-height: 22px;
     }
-    #puntuacion
-    {
+    #puntuacion{
         width: 98%;
+        font-size: 10px;
+        clear: left;
+        box-shadow: 0px 0px 8px 0px inset grey, 0px 0px 8px -1px inset grey;
+        padding-left: 7px;
+        background-color: white;
+    }
+    main {
+        width: 100%;
+        height: 545px;
+        display: block;
+        padding-top: 20px;
+    }
+    #main{
+        display: inline-block;
+    }
+    #numeroAside{
+        position: static;
+        width: 71.5%;
+        height: 40px;
+        margin-left: 14%;
+        font-size: 2rem;
+    }
+    #ventanaJuego{
+        height: 399px;
+        margin-top: 10px;
+        width: 98%;
+    }
+    #ventanaJuego div{
+        width: 30px;
+        height: 30px;
+    }
+}
+@media (min-width: 765px) and (max-width: 1024px) {
+    body{
+        height: 1366px;
+    }
+    header{
+        height: 120px;
+        background-color: white;
+        border: none;
+    }
+    .cajaLateral{
+        height: 60px;
+        width: 15%;
+        box-shadow: none;
+        background-color: #EFEFEF;
+    }
+    #logo{
+        height: 53px;
+        width: 100%;
+    }
+    #titulo{
+        font-size: 1rem;
+        height: 60px;
+        background-color: #5391DB;
+        font-weight: bold;
+        width: 83%;
+        line-height: 22px;
+    }
+    #puntuacion{
+        width: 99%;
         font-size: 1rem;
         clear: left;
         box-shadow: 0px 0px 8px 0px inset grey, 0px 0px 8px -1px inset grey;
         padding-left: 7px;
         background-color: white;
     }
-    main 
-    {
+    main {
         width: 100%;
-        height: 500px;
+        height: 885px;
         display: block;
         padding-top: 20px;
     }
-    #numeroAside
-    {
+    #numeroAside{
         position: static;
-        width: 71.5%;
+        width: 32%;
         height: 60px;
-        margin-left: 14%;
+        margin-left: 5%;
         font-size: 2rem;
     }
-    #ventanaJuego,#ganar,#perder
-    {
-        height: 360px;
+    #ventanaJuego{
+        height: 665px;
         margin-top: 30px;
+        width: 90%;
+    }
+    main button{
+        height: 60px;
     }
 }

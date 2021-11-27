@@ -14,15 +14,35 @@ class App
     {
         this.vista = new Vista(this); // Clase referente a todo el apartado visual de la aplicacion
         this.modelo = new Modelo(); // Clase referente a todos los datos de la aplicacion
-        this.animador = null;
-        window.onload= this.iniciar.bind(this); //Tomamos el objeto este y busca el metodo iniciar
-        document.getElementsByTagName('button')[0].onclick = this.finPrograma.bind(this);//Colocamos el evento que llama al metodo de fin de programa;
+        this.animador = null; // Creamos el animador
+
+        // Centramos el boton de juego
+        this.botonJuego = document.getElementById('juego');
+        this.botonJuego.style.left = (document.getElementById('ventanaJuego').clientWidth/2 - this.botonJuego.clientWidth/2)+'px';
+        this.botonJuego.style.top = (document.getElementById('ventanaJuego').clientHeight/2 - this.botonJuego.clientHeight/2)+'px';
+        this.botonJuego.onclick= this.iniciar.bind(this); //Clase destinada a iniciar el juego
     }
     iniciar()
     {
-        this.vista.puntuacion(this.modelo.puntuacion);
+        this.botonJuego.remove(); //borramos el boton de jugar
+
+        this.modelo.nivel = parseInt(document.getElementById('niveles').value); // Colocamos el nivel en el modelo
+        this.modelo.cantidadBolas = this.cantNivel();
+        this.vidaNivel();
+        this.vista.vida(this.modelo.vida); //Muestra la puntuacion
+
         this.vista.generarBolas(this.modelo.cantidadBolas); //Llamamos a generar las bolas, podriamos llamarlo si clica algun boton
         this.animador = window.setInterval(this.vista.moverBolas.bind(this.vista), 200); // nuestra animador llamara cada cierto intervalo de tiempo a la funcion de movimiento, el animador pertenece al controlador y verlas moviendose a la vista
+        
+        document.getElementById('acabarJuego').onclick = this.finPrograma.bind(this);//Colocamos el evento que llama al metodo de fin de programa;
+    }
+    vidaNivel()
+    {
+        this.modelo.vida -= (this.modelo.nivel-1) * 10;
+    }
+    cantNivel()
+    {
+        return this.modelo.nivel * this.modelo.cantidadBolas;
     }
     verificar(evento)
     {
@@ -30,6 +50,8 @@ class App
         let textoBola = bola.childNodes[0].nodeValue; //Saca el nodo de texto de la bola, es decir el numero a coparar si el multiplo
         let multiplo = document.getElementById('numeroAside'); //tomamos el elemento numeroAside que tiene el multiplo
         let textMultiplo = multiplo.childNodes[0].nodeValue; //Saca el nodo de texto de multiplo
+
+        const sonFallo = new Audio('sound/error.wav');//Audio declarado
 
         if (textoBola % textMultiplo == 0)
         {
@@ -39,7 +61,9 @@ class App
         else
         {
             this.vista.cambiarClase(bola,'bolaError');
-            this.vista.puntuar(-10);
+            this.vista.puntuarVida(-10);
+
+            sonFallo.play();
         }
     }
     finPrograma()
@@ -69,24 +93,36 @@ class App
             bolasMal[indice].remove();
         }
 
+        document.getElementsByTagName('audio')[0].remove();
+
         if (!multiplica && document.getElementById('puntuacion').children[1].textContent >= 0)
         {
             this.vista.ganador(); //si no existe multiplo nos llevara a que la vista nos enseñe que ganamos
+            this.puntuacionFinal(this.modelo.vida * this.modelo.nivel);
         }
         else
         {
             this.vista.perdedor(); //si existe multiplo nos llevara a que la vista nos enseñe que hemos perdido
+            this.puntuacionFinal('');
         }
 
-        this.volverJugar()
+        this.volverJugar();
     }
     volverJugar()
     {
         //llamamos que la vista cree el boton
-        this.vista.generarBoton('VOLVER A JUEGAR','otraVez');
+        this.vista.generarBoton('VOLVER A JUEGAR','otraVez').onclick = this.recargar.bind(this);
 
-        //colocamos el evento al boton nuevo creado
-        document.getElementById('otraVez').onclick = recargar();
+        //borramos el boton de fin de juego
+        document.getElementById('acabarJuego').remove();
+    }
+    puntuacionFinal(puntuacion)
+    {
+        document.cookie = `puntuacion = ${puntuacion}`;
+    }
+    recargar()
+    {
+        location.reload(); //Recargar la pagina
     }
 }
 /**
@@ -100,6 +136,7 @@ class Vista
         this.elementoPuntuacion = document.getElementById('puntuacion').children[1];
         document.getElementById('numeroAside').appendChild(document.createTextNode((Math.floor(Math.random() * (10 - 2)) + 2))); //
         this.contenedor = document.getElementById('ventanaJuego');
+
         this.bolas = []; //array que contenga todas las bolas
     }
     /**
@@ -115,11 +152,16 @@ class Vista
         }
     }
     /**
-     * Crearemos la cantidad de bolas que queremos
+     * Crearemos el boton que queramos
      */
      generarBoton(nodo,id)
      {
-        
+        let boton = document.createElement('button');
+        boton.appendChild(document.createTextNode(nodo));
+        boton.id = id;
+        document.getElementsByTagName('main')[0].appendChild(boton);
+
+        return boton;
      }
     /**
      * Moveremos la bola cada intervalo pedido por el controlador
@@ -150,12 +192,12 @@ class Vista
         elemento.classList.remove('bola');
         elemento.classList.add(nombreClase);
     }
-    puntuar(punto)
+    puntuarVida(punto)
     {
         this.elementoPuntuacion.textContent = `${parseInt(this.elementoPuntuacion.textContent)+punto}`;
-        this.controlador.modelo.puntuacion = parseInt(this.elementoPuntuacion.textContent);
+        this.controlador.modelo.vida = parseInt(this.elementoPuntuacion.textContent);
     }
-    puntuacion(punto)
+    vida(punto)
     {
         this.elementoPuntuacion.appendChild(document.createTextNode(punto));
     }
@@ -175,6 +217,9 @@ class Vista
         img.style.width = ancho*1.5 +'px'; //Le aplicamos un 1.5 del tamaño de la bola para que sea mas visual
         img.style.height = alto*1.5 +'px';
         this.contenedor.appendChild(img);
+
+        const sonExplo = new Audio('sound/explosion.wav'); //Audio declarado
+        sonExplo.play(); //Play audio
         
         setTimeout(()=>{img.remove()}, 750) //elimina la animación cuando completa un ciclo
     }
@@ -187,6 +232,9 @@ class Vista
         this.contenedor.appendChild(mensaje);//Añade el mensaje al contenedor
         mensaje.style.top = (this.contenedor.clientHeight/2)-(mensaje.clientHeight/2) + 'px'; //Colocamos las medidas por defecto de los div en top, le restamos la mitad de su tamaño
         mensaje.style.left = (this.contenedor.clientWidth/2)-(mensaje.clientWidth/2)  + 'px';//Colocamos las medidas por defecto de los div en left, le restamos la mitad de su tamaño
+    
+        const sonGanar = new Audio('sound/victoria.wav'); //Audio declarado
+        sonGanar.play(); //Play audio
     }
     perdedor()
     {
@@ -197,6 +245,9 @@ class Vista
         this.contenedor.appendChild(mensaje);//Añade el mensaje al contenedor
         mensaje.style.top = (this.contenedor.clientHeight/2)-(mensaje.clientHeight/2) + 'px'; //Colocamos las medidas por defecto de los div en top, le restamos la mitad de su tamaño
         mensaje.style.left = (this.contenedor.clientWidth/2)-(mensaje.clientWidth/2)  + 'px';//Colocamos las medidas por defecto de los div en left, le restamos la mitad de su tamaño
+    
+        const sonPerder = new Audio('sound/derrota.wav'); //Audio declarado
+        sonPerder.play(); //Play audio
     }
 }
 /**
@@ -209,8 +260,9 @@ class Modelo
      */
     constructor()
     {
-        this.cantidadBolas = 20;
-        this.puntuacion = 100;
+        this.cantidadBolas = 8;
+        this.vida = 100;
+        this.nivel = 1;
     }
 }
 class Bola
