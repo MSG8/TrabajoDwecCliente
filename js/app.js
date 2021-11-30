@@ -1,14 +1,17 @@
 /**
- * Clase principal de la aplicacion
- * archivo: app.js
- * Licencia: GPL3
- * Esta clase es el controlador de nuestra aplicacion
- * Autores: Manuel Solís Gómez(masogo008@gmail.com), Daniel Nuñez Santiago, Genaro Salas Galindo y Julio Ramos Gago
+ * @description Clase principal de la aplicacion
+ * @file app.js
+ * @license GPL3 
+ * @author Manuel Solís Gómez(masogo008@gmail.com), Daniel Nuñez Santiago, Genaro Salas Galindo y Julio Ramos Gago
  */
+
+/**
+* Esta clase es el controlador de nuestra aplicacion 
+*/
 class App
 {
     /**
-     * Llamamos a iniciar e inicamos las clases y atributos necesarios
+     * El constructor declarara la vista, el modelo, el animador y el boton que permitira iniciar el juego
      */
     constructor()
     {
@@ -95,15 +98,15 @@ class App
 
         document.getElementsByTagName('audio')[0].remove();
 
-        if (!multiplica && document.getElementById('puntuacion').children[1].textContent >= 0)
+        if (!multiplica && document.getElementById('puntuacion').children[1].textContent > 0)
         {
             this.vista.ganador(); //si no existe multiplo nos llevara a que la vista nos enseñe que ganamos
-            this.puntuacionFinal(this.modelo.vida * this.modelo.nivel);
+            this.puntuacionFinal(this.modelo.vida * this.modelo.nivel,false);
         }
         else
         {
             this.vista.perdedor(); //si existe multiplo nos llevara a que la vista nos enseñe que hemos perdido
-            this.puntuacionFinal('');
+            this.puntuacionFinal('',true);
         }
 
         this.volverJugar();
@@ -116,9 +119,18 @@ class App
         //borramos el boton de fin de juego
         document.getElementById('acabarJuego').remove();
     }
-    puntuacionFinal(puntuacion)
+    puntuacionFinal(puntuacion,tiempo=false)
     {
-        document.cookie = `puntuacion = ${puntuacion}`;
+        let fecha = new Date(); //Fecha actual
+        if (tiempo) 
+        {
+            fecha.setDate(fecha.getDate()-100);
+            document.cookie = 'puntuacion='+puntuacion+';expires='+fecha;
+        } 
+        else 
+        {
+            document.cookie = `puntuacion=${puntuacion}`;
+        }
     }
     recargar()
     {

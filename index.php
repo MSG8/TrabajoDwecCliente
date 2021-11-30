@@ -8,6 +8,10 @@
         <title>Crazy Balls</title>
     </head>
     <body>
+        <?php
+            require 'php/app.php'; //llamamos a los parametros para la conexion
+            $controlador = new App();
+        ?>
         <audio autoplay loop>
             <source src="sound/fondo.mp3" type="audio/ogg">
         </audio>
@@ -29,8 +33,14 @@
             <div id="ventanaJuego">
                 <button id="juego"> JUGAR </button>
             </div>
-            <button id="acabarJuego">ACABAR JUEGO</button>
+            <button id="acabarJuego" name="acabar">ACABAR JUEGO</button>
+            <?php
+                if (!isset($_COOKIE['puntuacion'])) 
+                {
+                    $controlador->verificarPartida();
+                }
+            ?>
         </main>
-        <script src="js/app.js"></script>
+        <script src="js/app.js" type="module"></script>
     </body>
 </html>

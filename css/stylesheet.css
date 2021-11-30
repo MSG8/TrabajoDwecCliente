@@ -56,8 +56,8 @@ header{
 /*Estilos main*/
 main{
     display: grid;
-    /* background-image: url("../img/greenboard.jpg"); */
-    background-color: rgb(139, 139, 139);
+    background-image: url("../img/greenboard.jpg");
+    /* background-color: rgb(139, 139, 139); */
     height: 685px;
     align-items: center;
     /*border-bottom: 4px solid grey;*/
