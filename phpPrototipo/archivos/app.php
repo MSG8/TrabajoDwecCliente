@@ -4,13 +4,9 @@
      */
     class App
     {
-        public $modelo; //Declaro clase modelo
-        public $vista; //Declaro clase vista
         public $operaciones; //Declaro clase operaciones, encargada de las operaciones con la base de datos
         function __construct()
         {
-            $this->modelo = new Modelo();
-            $this->vista = new Vista();
             require 'operacionesBd.php'; //llamamos a los parametros para la conexion
             $this->operaciones = new Operaciones();
         }
