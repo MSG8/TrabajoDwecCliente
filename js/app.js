@@ -109,6 +109,7 @@ class App
             this.puntuacionFinal('',true);
         }
 
+        this.controlBD();
         this.volverJugar();
     }
     volverJugar()
@@ -131,6 +132,30 @@ class App
         {
             document.cookie = `puntuacion=${puntuacion}`;
         }
+    }
+    controlBD()
+    {
+        this.leerCookie('puntuacion');
+        console.log(document.cookie);
+        if (this.leerCookie() != '') 
+        {
+            fetch('php/comprobar.php')
+                .then(respuesta => respuesta.text())
+                .then(texto => document.getElementById('numeroAside').innerHTML = texto);
+        } 
+        
+    }
+    leerCookie() 
+    {
+        var lista = document.cookie.split(";");
+        // for (i in lista) 
+        // {
+        //     var busca = lista[i].search(nombre);
+        //     if (busca > -1) {micookie=lista[i]}
+        //     }
+        // var igual = micookie.indexOf("=");
+        // var valor = micookie.substring(igual+1);
+        return lista[0];
     }
     recargar()
     {
