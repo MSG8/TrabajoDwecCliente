@@ -34,12 +34,6 @@
                 <button id="juego"> JUGAR </button>
             </div>
             <button id="acabarJuego" name="acabar">ACABAR JUEGO</button>
-            <?php
-                if (!isset($_COOKIE['puntuacion'])) 
-                {
-                    $controlador->verificarPartida();
-                }
-            ?>
         </main>
         <script src="js/app.js" type="module"></script>
     </body>
