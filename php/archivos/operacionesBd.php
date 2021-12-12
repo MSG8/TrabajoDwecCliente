@@ -25,9 +25,9 @@
       return $this->resultado;
     }
 
-    public function partida($formulario) //Consulta encargada de guardar una partida
+    public function partida() //Consulta encargada de guardar una partida
     {
-      $consulta = "INSERT INTO Partida (idMinijuego, nick, puntuacion) VALUES (1, '".$formulario['nick']."',".$formulario['puntos'].");"; //Colocamos la instruccion para traer los datos de nombre, correo y id(solo funcional) de todos los empleados
+      $consulta = "INSERT INTO Partida (idMinijuego, nick, puntuacion) VALUES (1, '".$_COOKIE['nick']."',".$_COOKIE['puntuacion'].");"; //Colocamos la instruccion para traer los datos de nombre, correo y id(solo funcional) de todos los empleados
       $this->resultado= $this->hacerConsulta($consulta); //Enviamos la consulta al metodo query del objeto conexion (mysqli) y devolvera el array con la fila pedida
       return $this->resultado;
     }
@@ -39,9 +39,9 @@
       return $this->resultado;
     }
 
-    public function actualizarPartida($formulario) //Consulta encargada de guardar una partida
+    public function actualizarPartida() //Consulta encargada de guardar una partida
     {
-      $consulta = "UPDATE partida SET nick='".$formulario['nick']."', puntuacion=".$formulario['puntos'].", fechaHora=NOW() WHERE idPartida = (SELECT idPartida FROM partida WHERE idMinijuego = 1 AND puntuacion = (SELECT MIN(puntuacion) FROM partida WHERE idMinijuego = 1) LIMIT 1);"; //Colocamos la instruccion para traer los datos de nombre, correo y id(solo funcional) de todos los empleados
+      $consulta = "UPDATE partida SET nick='".$_COOKIE['nick']."', puntuacion=".$_COOKIE['puntuacion'].", fechaHora=NOW() WHERE idPartida = (SELECT idPartida FROM partida WHERE idMinijuego = 1 AND puntuacion = (SELECT MIN(puntuacion) FROM partida WHERE idMinijuego = 1) LIMIT 1);"; //Colocamos la instruccion para traer los datos de nombre, correo y id(solo funcional) de todos los empleados
       $this->resultado= $this->hacerConsulta($consulta); //Enviamos la consulta al metodo query del objeto conexion (mysqli) y devolvera el array con la fila pedida
       return $this->resultado;
     }

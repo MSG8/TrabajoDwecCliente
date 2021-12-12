@@ -1,4 +1,8 @@
-import {Bola} from './bola.js';
+
+ import {Modelo} from './modelo.js';
+ import {Bola} from './bola.js';
+ import {App} from './controlador.js';
+
 /**
  * Clase destinada a la parte visual del programa, el se encargara de mostrar o crear elementos
  */

@@ -1,4 +1,6 @@
 
+ import {Vista} from './vista.js';
+
 /**
  * Clase destinada a guardar los datos de cada bola
  */

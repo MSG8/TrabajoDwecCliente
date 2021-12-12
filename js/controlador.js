@@ -4,8 +4,11 @@
  * @license GPL3 
  * @author Manuel Solís Gómez(masogo008@gmail.com), Daniel Nuñez Santiago, Genaro Salas Galindo y Julio Ramos Gago
  */
-import {Vista} from './vista.js';
-import {Modelo} from './modelo.js';
+
+ import {Vista} from './vista.js';
+ import {Modelo} from './modelo.js';
+ import {Bola} from './bola.js';
+
 /**
 * Esta clase es el controlador de nuestra aplicacion 
 */
@@ -167,5 +170,5 @@ class App
         location.reload(); //Recargar la pagina
     }
 }
-App.limiteNumero = 50; //atributo estatico
+
 let controlador = new App();

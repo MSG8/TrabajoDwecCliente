@@ -1,3 +1,8 @@
+
+ import {Vista} from './vista.js';
+ import {Bola} from './bola.js';
+ import {App} from './controlador.js';
+
 /**
  * Clase destinada a guardar los datos de la aplicacion
  */

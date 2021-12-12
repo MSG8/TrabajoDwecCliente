@@ -20,28 +20,36 @@
         {
             if ($this->operaciones->countPartidas()->fetch_assoc()['numPartidas'] < 10) 
             {
-                echo 'añadir nick';
+                echo true;
             }
             else 
             {
                 if ($_COOKIE['puntuacion'] >= $this->operaciones->puntosMenor()->fetch_assoc()['puntos']) //si aunque este el ranking completo los puntos son mayor a la puntuacion minima del ranking
                 {
-                    echo 'enviar actualizacion';
+                    echo true;
                 }
                 else 
                 {
-                    echo 'no enviar nick';
+                    echo false;
                 }
             }
         }
-        public function guardarPartidas($formulario)
+        /**
+         * Metodo encargado de cambiar las partidas guardadas en la base de datos
+         */
+        public function insertar()
         {
-            $this->operaciones->partida($formulario);
+            if ($this->operaciones->countPartidas()->fetch_assoc()['numPartidas'] < 10) 
+            {
+                $this->operaciones->partida();
+            }
+            else 
+            {
+                if ($_COOKIE['puntuacion'] >= $this->operaciones->puntosMenor()->fetch_assoc()['puntos']) //si aunque este el ranking completo los puntos son mayor a la puntuacion minima del ranking
+                {
+                    $this->operaciones->actualizarPartida();
+                }
+            }
         }
-        public function actualizaRanking($formulario)
-        {
-            $this->operaciones->actualizarPartida($formulario);
-        }
-
     }
 ?>
