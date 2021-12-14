@@ -13,4 +13,4 @@ export class Modelo
         this.nivel = 1;
     }
 }
-Modelo.limiteNumero = 50; //atributo estatico para definir el limite de numeros de 
+Modelo.limiteNumero = 50; //atributo estatico para definir el limite de numeros de los numeros
