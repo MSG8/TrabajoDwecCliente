@@ -1,12 +1,8 @@
-
- import {Modelo} from './modelo.js';
- import {Bola} from './bola.js';
- import {App} from './controlador.js';
-
+import {Bola} from './bola.js';
 /**
  * Clase destinada a la parte visual del programa, el se encargara de mostrar o crear elementos
  */
-class Vista
+export class Vista 
 {
     /**
      * Metodo encargada de iniciar los atributos de la vista. Coloca la vida del juego y inicia el array de las bolas.

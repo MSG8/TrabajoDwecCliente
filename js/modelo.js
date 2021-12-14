@@ -1,12 +1,7 @@
-
- import {Vista} from './vista.js';
- import {Bola} from './bola.js';
- import {App} from './controlador.js';
-
 /**
  * Clase destinada a guardar los datos de la aplicacion
  */
-class Modelo
+export class Modelo
 {
     /**
      * Inicializamos los atributos que contendran los datos del programa (cantidad de bolas, la vida y el nivel)
@@ -18,3 +13,4 @@ class Modelo
         this.nivel = 1;
     }
 }
+Modelo.limiteNumero = 50; //atributo estatico para definir el limite de numeros de 

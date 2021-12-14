@@ -4,15 +4,12 @@
  * @license GPL3 
  * @author Manuel Solís Gómez(masogo008@gmail.com), Daniel Nuñez Santiago, Genaro Salas Galindo y Julio Ramos Gago
  */
-
- import {Vista} from './vista.js';
- import {Modelo} from './modelo.js';
- import {Bola} from './bola.js';
-
+import {Vista} from './vista.js';
+import {Modelo} from './modelo.js';
 /**
 * Esta clase es el controlador de nuestra aplicacion 
 */
-class App
+export class App
 {
     /**
      * El constructor declarara la vista, el modelo, el animador y el boton que permitira iniciar el juego
@@ -89,7 +86,7 @@ class App
     }
     /**
      * Metodo encargada de finalizar el programa, segun la vida y las bolas restantes sacara la puntuacion.
-     * Tambien iniciara la clse encargada de volver a jugar
+     * Tambien iniciara la clase encargada de volver a jugar
      */
     finPrograma()
     {
@@ -130,7 +127,6 @@ class App
             this.vista.perdedor(); //si existe multiplo nos llevara a que la vista nos enseñe que hemos perdido
             this.puntuacionFinal('',true);
         }
-
         this.volverJugar();
     }
     /**
@@ -170,5 +166,4 @@ class App
         location.reload(); //Recargar la pagina
     }
 }
-
 let controlador = new App();

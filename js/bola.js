@@ -1,10 +1,8 @@
-
- import {Vista} from './vista.js';
-
+import {Modelo} from './modelo.js';
 /**
  * Clase destinada a guardar los datos de cada bola
  */
-class Bola
+export class Bola
 {
     /**
      * El constructor formara la velocidad de desplzamiento de las bolas de forma aleatoria, ademas del apartado de estilo de las bolas
@@ -17,7 +15,9 @@ class Bola
         this.velocidadx =  Math.floor (Math.random () * 51) -25;
         this.velocidady =  Math.floor (Math.random () * 51) -25;
         this.div = document.createElement('div');
-        this.div.appendChild(document.createTextNode((Math.floor(Math.random() * (App.limiteNumero - 2)) + 2)));
+        //Colocamos el numero a la bola de 0 al limite del numero
+        this.div.appendChild(document.createTextNode((Math.floor(Math.random() * (Modelo.limiteNumero - 2)) + 2)));
+        //Colocamos su clase correspondiente
         this.cambiarClase('bola');
         //Cada vez que se cree una bola se generara en el centro
         this.div.style.top = (contenedor.clientHeight/2) + 'px'; //Colocamos las medidas por defecto de los div en top
